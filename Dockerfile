@@ -31,6 +31,4 @@ RUN go build -o /app/script2_app .
 WORKDIR /app
 RUN chmod +x /app/run.sh
 
-ENV RABBITMQ_URL="amqp://guest:guest@rabbitmq:5672/"
-
 CMD ["/app/run.sh"]
