@@ -20,4 +20,5 @@ services:
     environment:
       - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672/
     volumes:
-      - ./results:/app/finall-data/results
+      - ./songs:/app/finall-data/songs
+      - ./data:/app/finall-data/data
