@@ -111,29 +111,21 @@ func main() {
 			artists, err := GetAndSaveArtists(driver, artistPath)
 			if err != nil {
 				log.Printf("failed to find artists for item %s: %v", item.Name, err)
-				processingFailed = true
-				break
 			}
 			_ = driver.Get(item.ItemURL)
 			genres, err := GetAndSaveGenre(driver, genrePath)
 			if err != nil {
 				log.Printf("failed to find genres for item %s: %v", item.Name, err)
-				processingFailed = true
-				break
 			}
 			//_ = driver.Get(item.ItemURL)
 			moodsName, err := GetAndSaveMood(driver, moodDataPath)
 			if err != nil {
 				log.Printf("failed to find mood data for item %s: %v", item.Name, err)
-				processingFailed = true
-				break
 			}
 			//_ = driver.Get(item.ItemURL)
 			pub, err := GetAndSavePublisher(driver, publisherPath)
 			if err != nil {
 				log.Printf("failed to find publisher for item %s: %v", item.Name, err)
-				processingFailed = true
-				break
 			}
 
 			instruments, err := GetAndSaveInstrument(driver, instrumentPath)
@@ -207,8 +199,7 @@ func main() {
 				bytes, err := json.Marshal(album)
 				if err != nil {
 					log.Printf("failed to marshal album: %v", err)
-					processingFailed = true
-					break
+					continue
 				}
 				sanitizedName := strings.ReplaceAll(item.Name, "/", "-")
 
@@ -216,8 +207,7 @@ func main() {
 				err = os.WriteFile(fileName, bytes, 0644)
 				if err != nil {
 					log.Printf("failed to write file: %v", err)
-					processingFailed = true
-					break
+					continue
 				}
 
 			} else {
