@@ -198,16 +198,18 @@ func main() {
 				}
 				bytes, err := json.Marshal(album)
 				if err != nil {
-					log.Printf("failed to marshal album: %v", err)
-					continue
+					log.Printf("failed to marshal album: %v, PROCESS FAILE", err)
+					processingFailed = true
+					break
 				}
 				sanitizedName := strings.ReplaceAll(item.Name, "/", "-")
 
 				fileName := filepath.Join(itemPath, sanitizedName+".json")
 				err = os.WriteFile(fileName, bytes, 0644)
 				if err != nil {
-					log.Printf("failed to write file: %v", err)
-					continue
+					log.Printf("failed to write file: %v, PROCESS FAILE", err)
+					processingFailed = true
+					break
 				}
 
 			} else {
