@@ -104,7 +104,7 @@ func main() {
 		var processingFailed bool
 		for _, item := range message.Items {
 			if err := driver.Get(item.ItemURL); err != nil {
-				log.Printf("failed to go to the item url %s: %v", item.ItemURL, err)
+				log.Printf("failed to go to the item url %s: %v, PROCESS FAILE", item.ItemURL, err)
 				processingFailed = true
 				break
 			}
@@ -138,7 +138,7 @@ func main() {
 			sanitizedType := strings.ReplaceAll(item.Type, "/", "-")
 			typePath := filepath.Join(moodPath, sanitizedType)
 			if err = os.MkdirAll(typePath, 0755); err != nil {
-				log.Printf("failed to create directory `%s`: %v", typePath, err)
+				log.Printf("failed to create directory `%s`: %v, PROCESS FAILE", typePath, err)
 				processingFailed = true
 				break
 			}
@@ -146,26 +146,26 @@ func main() {
 			sanitizedItemName := strings.ReplaceAll(item.Name, "/", "-")
 			itemPath := filepath.Join(typePath, sanitizedItemName)
 			if err = os.MkdirAll(itemPath, 0755); err != nil {
-				log.Printf("failed to create directory `%s`: %v", itemPath, err)
+				log.Printf("failed to create directory `%s`: %v, PROCESS FAILE", itemPath, err)
 				processingFailed = true
 				break
 			}
 
 			divContains, err := driver.FindElement(selenium.ByID, "aramplayer")
 			if err != nil {
-				log.Printf("failed to find aramplayer for item %s: %v", item.Name, err)
+				log.Printf("failed to find aramplayer for item %s: %v, PROCESS FAILE", item.Name, err)
 				processingFailed = true
 				break
 			}
 			ulElement, err := divContains.FindElement(selenium.ByTagName, "ul")
 			if err != nil {
-				log.Printf("failed to find ul element for item %s: %v", item.Name, err)
+				log.Printf("failed to find ul element for item %s: %v, PROCESS FAILE", item.Name, err)
 				processingFailed = true
 				break
 			}
 			liElements, err := ulElement.FindElements(selenium.ByTagName, "li")
 			if err != nil {
-				log.Printf("failed to find li elements for item %s: %v", item.Name, err)
+				log.Printf("failed to find li elements for item %s: %v, PROCESS FAILE", item.Name, err)
 				processingFailed = true
 				break
 			}
